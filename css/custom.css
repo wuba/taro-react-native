@@ -1,4 +1,24 @@
 
+:root {
+  --ifm-font-family-base: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji";
+  --ifm-line-height-base: 2;
+}
+
+.main-wrapper header h1 {
+  font-size: 2rem;
+}
+.markdown > h2 {
+  --ifm-h2-font-size: 1.75rem;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.375rem;
+}
+
+.menu__list-item .menu__list-item {
+  font-weight: normal;
+}
+
 .navbar a.navbar__link[version=true] {
   text-decoration: underline;
 }
@@ -41,6 +61,10 @@
 .navbar .navbar__title {
   color: whitesmoke;
   font-size: 1.25em;
+}
+
+.navbar a.navbar__link:hover, .navbar a.navbar__link--active {
+  color: var(--ifm-navbar-link-hover-color);
 }
 
 h1.docTitle_node_modules-\@docusaurus-theme-classic-src-theme-DocItem- {
@@ -213,6 +237,13 @@ a, a:hover {
 }
 
 @media (max-width: 996px) {
+  .navbar .navbar__toggle {
+    display: inherit;
+    color: #fff;
+  }
+  .navbar .navbar-sidebar__brand {
+    background-image: linear-gradient(180deg, #0000c2, #0000c2);
+  }
   .grid_c1,
   .footer_link_container,
   .footer .footer_logo_container {
@@ -292,10 +323,6 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   vertical-align: middle;
   fill: currentcolor;
   overflow: hidden;
-}
-
-pre {
-  background-color: #f8f8f8 !important;
 }
 
 .hljs {
@@ -399,4 +426,25 @@ pre {
 
 .app table {
   margin-bottom: 80px;
+}
+
+html .top_tip a {
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 22px;
+  align-items: center;
+  background: var(--docsearch-key-gradient);
+  border-radius: 3px;
+  box-shadow: var(--docsearch-key-shadow);
+  height: 22px;
+  justify-content: center;
+  margin-right: .4em;
+  padding-bottom: 2px;
+  position: relative;
+  top: -1px;
+  width: auto;
+  text-decoration: none;
+}
+html[data-theme="dark"] .top_tip a {
+color: var(--docsearch-muted-color);
 }
