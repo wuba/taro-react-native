@@ -34,7 +34,8 @@ export {
   stopPullDownRefresh,
   pageScrollTo,
   setBackgroundColor,
-  setBackgroundTextStyle
+  setBackgroundTextStyle,
+  getCurrentPages
 } from '@tarojs/runtime-rn'
 
 export * from './request'
