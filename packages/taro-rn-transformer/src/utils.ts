@@ -22,10 +22,8 @@ export function getStyleCode (code: string, basePath: string) {
   const ast = parser.parse(code, {
     sourceType: 'module',
     plugins: [
-      'jsx',
       'typescript',
-      'classProperties',
-      'decorators-legacy'
+      ...require('babel-preset-taro/rn')(null, { framework: 'react' }).plugins
     ]
   })
 
