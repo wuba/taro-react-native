@@ -49,7 +49,7 @@ class _Button extends React.Component<ButtonProps, ButtonState> {
     size: 'default',
     type: 'default',
     hoverStartTime: 20,
-    hoverStayTime: 70
+    hoverStayTime: 0
   }
 
   $touchable = React.createRef<TouchableWithoutFeedback>()
