@@ -200,8 +200,10 @@ class _Video extends Component<Props, any> {
   };
 
   clickPlayBtn = ():void => {
-    const { isEnded } = this.state
+    const { isEnded, isFirst } = this.state
+    const { initialTime } = this.props
     isEnded && this.seek(0)
+    isFirst && this.seek(initialTime)
     this.videoRef && this.videoRef.playAsync()
     this.setState({
       shouldPlay: true,
@@ -332,7 +334,6 @@ class _Video extends Component<Props, any> {
       src,
       autoplay,
       style,
-      initialTime,
       loop,
       muted,
       objectFit = 'contain',
@@ -351,7 +352,6 @@ class _Video extends Component<Props, any> {
       usePoster: !!controls,
       isLooping: loop,
       isMuted: muted,
-      positionMillis: initialTime,
       style: Object.assign({ width: '100%', height: '100%' }, style as Record<string, unknown>),
       ref: this.getVideoRef,
       resizeMode: ObjectFit[objectFit],

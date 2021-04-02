@@ -60,7 +60,7 @@ interface VideoProps extends StandardProps {
   /** 指定视频初始播放位置
    * @supported weapp, h5, swan, alipay, tt
    */
-  initialTime?: number
+  initialTime: number
 
   /** 在非全屏模式下，是否开启亮度与音量调节手势
    * @default false
