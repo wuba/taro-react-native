@@ -45,7 +45,6 @@ exports[`Video render Video 1`] = `
       onLoad={[Function]}
       onPlaybackStatusUpdate={[Function]}
       onReadyForDisplay={[Function]}
-      positionMillis={30}
       posterSource={
         Object {
           "uri": "http://misc.aotu.io/booxood/mobile-video/cover_900x500.jpg",
