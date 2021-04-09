@@ -100,6 +100,13 @@ export default function generateEntry ({
   ${importPageList}
   ${`import AppComponentConfig from '${appComponentPath}.config';`}
   ${importPageConfig}
+  if(AppComponentConfig && AppComponentConfig.rn){
+    const rnConfig = AppComponentConfig.rn
+    if(rnConfig.bMapKey){
+      const BMapMananger = require('react-native-baidu-map').BaiduMapManager
+      BMapMananger.initSDK(rnConfig.bMapKey)
+    }
+  }
 
   const buildConfig = ${JSON.stringify(appConfig)}
   const config = { appConfig: { ...buildConfig, ...AppComponentConfig } }

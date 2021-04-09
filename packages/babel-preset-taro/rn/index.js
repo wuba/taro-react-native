@@ -1,6 +1,6 @@
 
 const reactNativeBabelPreset = require('metro-react-native-babel-preset')
-const { merge } = require('lodash')
+const { merge, isPlainObject, isString, uniq } = require('lodash')
 const fs = require('fs')
 /**
  *
@@ -91,6 +91,48 @@ function getDefineConstants () {
   return getEnv()
 }
 
+function getExpendMoudle () {
+  const expandList = getRNConfig().expand || []
+  const apiList = []
+  const apiModuleMap = {}
+  const compList = []
+  const compModuleMap = {}
+  if (expandList && Array.isArray(expandList)) {
+    expandList.forEach((item) => {
+      let itemAPIList = []
+      let apiModule = ''
+      let compModule = ''
+      let itemCompList = []
+      if (isString(item) && (item === 'bMap' || item === 'aMap')) {
+        const bMapList = require('@tarojs/taro-rn/mapList.js')[item]
+        apiModule = `@tarojs/taro-rn/dist/expand/${item}`
+        itemCompList.push('Map')
+        itemAPIList = itemAPIList.concat(bMapList)
+        compModule = `@tarojs/components-rn/dist/expand/${item}`
+      } else if (isPlainObject(item) && item.apiList) {
+        itemAPIList = item.apiList
+        apiModule = item.moduleName
+        itemCompList = item.components
+        compModule = item.moduleName
+      }
+      itemAPIList.forEach((it) => {
+        apiModuleMap[it] = apiModule
+        apiList.push(it)
+      })
+      itemCompList.forEach((it) => {
+        compModuleMap[it] = compModule
+        compList.push(it)
+      })
+    })
+  }
+  return {
+    apiList,
+    apiModuleMap,
+    compList,
+    compModuleMap
+  }
+}
+
 module.exports = (_, options = {}) => {
   const {
     decoratorsBeforeExport,
@@ -103,9 +145,10 @@ module.exports = (_, options = {}) => {
   // taro-rn api/lib 支持按需引入
   const nativeApis = require('@tarojs/taro-rn/apiList.js')
   const nativeLibs = require('@tarojs/taro-rn/libList.js')
-  const nativeInterfaces = nativeApis.concat(nativeLibs)
+  const expandModule = getExpendMoudle()
+  const expandApiList = expandModule.apiList
+  const nativeInterfaces = uniq(nativeApis.concat(nativeLibs).concat(expandApiList))
 
-  getEnv()
   const defineConstants = getDefineConstants()
   const presets = []
   const plugins = []
@@ -125,11 +168,19 @@ module.exports = (_, options = {}) => {
       usePackgesImport: true, // Whether to use packagesImport
       packagesImport: {
         '^@tarojs/components(-rn)?$': {
-          transform: '@tarojs/components-rn/dist/components/${member}'
+          transform: (member) => {
+            if (expandModule.compList.includes(member)) {
+              return expandModule.compModuleMap[member]
+            } else {
+              return `@tarojs/components-rn/dist/components/${member}`
+            }
+          }
         },
         '^@tarojs/taro(-rn)?$': {
           transform: (importName) => {
-            if (nativeLibs.includes(importName)) {
+            if (expandModule.apiList.includes(importName)) {
+              return expandModule.apiModuleMap[importName]
+            } else if (nativeLibs.includes(importName)) {
               return `@tarojs/taro-rn/dist/lib/${importName}`
             } else {
               return '@tarojs/taro-rn/dist/api'

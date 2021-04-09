@@ -39,7 +39,8 @@
     "prop-types": "^15.6.2",
     "react-native-maps": "^0.25.0",
     "react-native-webview": "^10.10.2",
-    "unimodules-permissions-interface": "~5.3.0"
+    "unimodules-permissions-interface": "~5.3.0",
+    "react-native-baidu-map":"1.0.37"
   },
   "devDependencies": {
     "@tarojs/components": "3.2.0",

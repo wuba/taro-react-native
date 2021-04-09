@@ -58,7 +58,8 @@
     "react-native-safe-area-context": "^3.1.8",
     "react-native-stylekit": "^1.0.0",
     "react-native-syan-image-picker": "0.4.10",
-    "react-native-unimodules": "^0.11.0"
+    "react-native-unimodules": "^0.11.0",
+    "react-native-baidu-map":"1.0.37"
   },
   "devDependencies": {
     "@tarojs/taro": "3.2.0",
