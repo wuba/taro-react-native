@@ -131,7 +131,7 @@ const config = {
 
 ```
 
-# 三、导航
+## 三、导航
 
 React Native 导航是封装的 React-Navigation 5.x，为了更好的方便业务自定义，支持全局与页面配置中透传React Navigation的配置，但注意以下导航相关设置Taro 3.x 生效。
 ### 全局配置 
@@ -158,9 +158,20 @@ if(process.env.TARO_ENV === 'rn'){
    tabBarOptions:{//tabbarOptions的配置，其他参考https://reactnavigation.org/docs/bottom-tab-navigator/#tabbar tabBarOptions
        
    },
-   screenOptions:{//全局screenOptions，作用于非所有页面，注意不支持返回React.Node的属性，参考https://reactnavigation.org/docs/stack-navigator/#options
+   screenOptions:{//全局screenOptions，作用于非tabbar所有页面，注意不支持返回React.Node的属性，参考https://reactnavigation.org/docs/stack-navigator/#options
        
-   }
+   },
+   tabProps:{//支持以下属性，属性值参考https://reactnavigation.org/docs/bottom-tab-navigator#props
+     lazy//tabbar启动是否都渲染，默认是true，启动时只渲染第一个
+     backBehavior
+     detachInactiveScreens
+     sceneContainerStyle
+  },
+  stackProps:{ //支持以下属性，属性值参考https://reactnavigation.org/docs/stack-navigator#props
+      keyboardHandlingEnabled
+      mode
+      headerMode
+      detachInactiveScreens
   }
 }
 
@@ -187,6 +198,30 @@ rn:{
 >  - 不支持直接传入React.Node节点的参数
 >  - 传入的样式对象为 React Native 的样式对比，比如 tabStyle:{ backgroundColor :'#ff0000'}
 > - rn的配置优先于其他配置，比如统一的tabBar里配置了selectedColor ，rn配置里的 activeTintColor ，那么生效的是 activeTintColor
+
+### 动态设置初始化页面
+
+在rn 启动初始化时，支持动态传入两个参数：
+- `initPath` 初始化路由，可动态指定对应的路由 
+- `initParams` 初始化参数，启动时，可传入相应的参数到页面中
+> 其中 `initPath`问号后面带的参数会合并到initParams参数中
+
+比如ios 端：
+
+```objc
+
+NSDictionary *params = @{
+    @"env": @"dev"
+  };
+NSDictionary *props = @{
+    @"initPath" : @"/pages/index/index?bar=1",
+    @"initParams":params
+  };
+RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                 moduleName:@"taroDemo"
+                                          initialProperties:props];
+```
 
  
 ## 常见问题
