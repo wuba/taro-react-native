@@ -105,7 +105,7 @@
     "eslint-config-prettier": "^6.4.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-config-standard-jsx": "^8.1.0",
-    "eslint-loader": "^2.0.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-flowtype": "^3.2.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "24.1.5",
