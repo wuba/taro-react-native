@@ -77,7 +77,7 @@
     "@types/react": "^17.0.0",
     "@types/resolve": "1.19.0",
     "@types/sinon": "^7.5.0",
-    "@types/tapable": "1.0.5",
+    "@types/tapable": "2.2.2",
     "@types/webpack": "^4",
     "@types/webpack-dev-server": "3.11.3",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
