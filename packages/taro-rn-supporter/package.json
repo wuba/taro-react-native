@@ -34,7 +34,7 @@
     "@tarojs/helper": "3.3.0",
     "@tarojs/rn-style-transformer": "3.3.0",
     "lodash": "^4.17.20",
-    "metro": "^0.64.0",
+    "metro": "^0.66.1",
     "metro-react-native-babel-transformer": "^0.64.0",
     "metro-resolver": "^0.64.0"
   }
